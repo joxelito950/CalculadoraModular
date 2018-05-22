@@ -70,6 +70,17 @@ public class Back {
         b = perteneceAZn(b);
         //b = invertibleModular
         resultado=a.multiply(b);
+        resultado=resultado.mod(zn);
+        return resultado.toString();
+    }
+    
+    public String PowModular(String base, String expo){
+        if(zn==BigInteger.ZERO)
+            return "";
+        a=new BigInteger(base);
+        b= new BigInteger(expo);
+        resultado = a.pow(b);
+        resultado=resultado.mod(zn);
         return resultado.toString();
     }
     
