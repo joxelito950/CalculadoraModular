@@ -74,12 +74,12 @@ public class Back {
         return resultado.toString();
     }
     
-    public String PowModular(String base, String expo){
+    public String powModular(String base, String expo){
         if(zn==BigInteger.ZERO)
             return "";
         a=new BigInteger(base);
         b= new BigInteger(expo);
-        resultado = a.pow(b);
+        resultado = a.pow(b.intValue());
         resultado=resultado.mod(zn);
         return resultado.toString();
     }

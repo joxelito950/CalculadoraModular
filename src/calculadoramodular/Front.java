@@ -183,14 +183,14 @@ public class Front extends JFrame implements ActionListener{
             b.setEnabled(false);
         }
         if(e.getSource()==powAb){
-            resultado.setText(operaciones.powModular(a,b));
+            resultado.setText(operaciones.powModular(a.getText(), b.getText()));
             zn.setText("");
             info.setVisible(true);
             a.setEnabled(false);
             b.setEnabled(false);
         }
         if(e.getSource()==powBa){
-            resultado.setText(operaciones.powModular(b,a));
+            resultado.setText(operaciones.powModular(b.getText(),a.getText()));
             zn.setText("");
             info.setVisible(true);
             a.setEnabled(false);
