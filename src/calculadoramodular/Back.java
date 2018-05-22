@@ -27,6 +27,15 @@ public class Back {
             return false;
         }
     }
+
+    public String getZn() {
+        if(0<zn.signum())
+            return zn.toString();
+        else
+            return "No asignado";
+    }
+    
+    
     
     public String sumaModular(String sa,String sb){
         if(zn==BigInteger.ZERO)

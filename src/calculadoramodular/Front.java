@@ -139,28 +139,34 @@ public class Front extends JFrame implements ActionListener{
         inversoA.addActionListener(this);
         inversoB.addActionListener(this);
     }
+    
+    private void setLeableEditable(boolean x){
+        if(x){
+            info.setText("press Enter");
+            a.setEnabled(true);
+            b.setEnabled(true);
+        }
+        else{
+            zn.setText("");
+            info.setText(operaciones.getZn());
+            a.setEnabled(false);
+            b.setEnabled(false);
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==zn){
             if(operaciones.setZn(zn.getText())){ 
-                info.setVisible(false);
-                a.setEnabled(true);
-                b.setEnabled(true);
+                setLeableEditable(true);
             }
             else{
-                zn.setText("");
-                info.setVisible(true);
-                a.setEnabled(false);
-                b.setEnabled(false);
+                setLeableEditable(false);
             }
         }
         if(e.getSource()==sum){
             resultado.setText(operaciones.sumaModular(a.getText(),b.getText()));
-            zn.setText("");
-            info.setVisible(true);
-            a.setEnabled(false);
-            b.setEnabled(false);
+            setLeableEditable(false);
         }
         if(e.getSource()==mult){
             resultado.setText(operaciones.multiplicacionModular(a.getText(), b.getText()));
