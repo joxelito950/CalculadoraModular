@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package calculadoramodular;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import javax.swing.*;
 
 
@@ -14,18 +13,17 @@ import javax.swing.*;
  * @author jose-
  */
 public class Front extends JFrame implements ActionListener{
-    private JTextField zn,a,b;
+    private JTextField zn,a,b,resultado;
     private JScrollPane r;
-    private JTextArea resultado;
-    private JLabel info, infoZn, infoA, infoB, infoResultado;
+    private JLabel infoZn, infoA, infoB, infoResultado;
     private JButton sum, mult, div, powAb, powBa, raizA, raizB, cp, inversoA, inversoB;
     private Back operaciones;
     
     public Front(){
         this.setLayout(null);
-        this.setBounds(200, 200, 300, 450);
+        this.setBounds(200, 200, 300, 300);
         this.setTitle("Calculadora Modular");
-        info = new JLabel("Press Enter");
+        this.setResizable(false);
         infoZn = new JLabel("Zn");
         zn = new JTextField();
         infoA = new JLabel("a");
@@ -33,7 +31,7 @@ public class Front extends JFrame implements ActionListener{
         infoB = new JLabel("b");
         b = new JTextField();
         infoResultado = new JLabel("Resultado");
-        resultado= new JTextArea(250,200);
+        resultado= new JTextField();
         r =new JScrollPane(resultado);
         sum = new JButton("S.M");
         mult = new JButton("M.M");
@@ -50,9 +48,8 @@ public class Front extends JFrame implements ActionListener{
     }
     
     public void ventana(){
-        info.setBounds(100, 10, 100, 20);
         infoZn.setBounds(10,10,20,20);
-        zn.setBounds(35,10,50,20);
+        zn.setBounds(35,10,220,20);
         infoA.setBounds(15,35,20,20);
         a.setBounds(35,35,220,20);
         infoB.setBounds(15,60,20,20);
@@ -68,9 +65,8 @@ public class Front extends JFrame implements ActionListener{
         inversoA.setBounds(100,145,60,25);
         inversoB.setBounds(165,145,60,25);
         infoResultado.setBounds(115,180,100,20);
-        r.setBounds(10, 200, 260, 200);
+        r.setBounds(10, 200, 270, 42);
         
-        this.add(info);
         this.add(infoZn);
         this.add(zn);
         this.add(infoA);
@@ -90,7 +86,6 @@ public class Front extends JFrame implements ActionListener{
         this.add(inversoA);
         this.add(inversoB);
         
-        info.setVisible(true);
         infoZn.setVisible(true);
         zn.setVisible(true);
         infoA.setVisible(true);
@@ -111,9 +106,24 @@ public class Front extends JFrame implements ActionListener{
         inversoB.setVisible(true);
         this.setVisible(true);
         
-        a.setEnabled(false);
-        b.setEnabled(false);
+        sum.setEnabled(false);
+        mult.setEnabled(false);
+        div.setEnabled(false);
+        powAb.setEnabled(false);
+        powBa.setEnabled(false);
+        raizA.setEnabled(false);
+        raizB.setEnabled(false);
+        cp.setEnabled(false);
+        inversoA.setEnabled(false);
+        inversoB.setEnabled(false);
                 
+        Teclado tecleo=new Teclado();
+        Foco evento=new Foco();
+        
+        zn.addKeyListener(tecleo);
+        a.addKeyListener(tecleo);
+        b.addKeyListener(tecleo);
+        zn.addFocusListener(evento);
         zn.addActionListener(this);
         sum.addActionListener(this);
         mult.addActionListener(this);
@@ -128,17 +138,38 @@ public class Front extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
+    private void znCorrecto(){
+        if(operaciones.setZn(zn.getText())){
+                    sum.setEnabled(true);
+                    mult.setEnabled(true);
+                    div.setEnabled(true);
+                    powAb.setEnabled(true);
+                    powBa.setEnabled(true);
+                    raizA.setEnabled(true);
+                    raizB.setEnabled(true);
+                    cp.setEnabled(true);
+                    inversoA.setEnabled(true);
+                    inversoB.setEnabled(true);
+                }
+                else{
+                    zn.setText("");
+                    sum.setEnabled(false);
+                    mult.setEnabled(false);
+                    div.setEnabled(false);
+                    powAb.setEnabled(false);
+                    powBa.setEnabled(false);
+                    raizA.setEnabled(false);
+                    raizB.setEnabled(false);
+                    cp.setEnabled(false);
+                    inversoA.setEnabled(false);
+                    inversoB.setEnabled(false);
+                }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==zn){
-            if(operaciones.setZn(zn.getText())){ 
-                info.setText("");
-                a.setEnabled(true);
-                b.setEnabled(true);
-            }
-            else{
-                zn.setText("");
-            }
+            znCorrecto();
         }
         if(e.getSource()==sum){
             resultado.setText(operaciones.sumaModular(a.getText(),b.getText()));
@@ -171,6 +202,45 @@ public class Front extends JFrame implements ActionListener{
             resultado.setText(operaciones.invertibleModular(b.getText()));
         }
         zn.requestFocus();
+    }
+    
+    private class Foco implements FocusListener{
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+                if(e.getSource()==zn){
+                    znCorrecto();
+            }
+        }
+            
+    }
+    
+    private class Teclado implements KeyListener{
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+                char d=e.getKeyChar();
+                if(!Character.isDigit(d))
+                    e.consume();
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            int code = e.getKeyCode(); 
+            if(code==KeyEvent.VK_INSERT||code==KeyEvent.VK_ENTER)
+                znCorrecto();
+        }
+        
     }
 
 }
