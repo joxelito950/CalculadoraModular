@@ -6,8 +6,11 @@
 package calculadoramodular;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.*;
 import java.math.BigInteger;
+import javax.security.auth.kerberos.KeyTab;
 
 
 /**
@@ -140,98 +143,49 @@ public class Front extends JFrame implements ActionListener{
         inversoB.addActionListener(this);
     }
     
-    private void setLeableEditable(boolean x){
-        if(x){
-            info.setText("press Enter");
-            a.setEnabled(true);
-            b.setEnabled(true);
-        }
-        else{
-            zn.setText("");
-            info.setText(operaciones.getZn());
-            a.setEnabled(false);
-            b.setEnabled(false);
-        }
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==zn){
             if(operaciones.setZn(zn.getText())){ 
-                setLeableEditable(true);
+                info.setText("");
+                a.setEnabled(true);
+                b.setEnabled(true);
             }
             else{
-                setLeableEditable(false);
+                zn.setText("");
             }
         }
         if(e.getSource()==sum){
             resultado.setText(operaciones.sumaModular(a.getText(),b.getText()));
-            setLeableEditable(false);
         }
         if(e.getSource()==mult){
             resultado.setText(operaciones.multiplicacionModular(a.getText(), b.getText()));
-            zn.setText("");
-            info.setVisible(true);
-            a.setEnabled(false);
-            b.setEnabled(false);
         }
         if(e.getSource()==div){
             resultado.setText(operaciones.divisionModular(a.getText(), b.getText()));
-            zn.setText("");
-            info.setVisible(true);
-            a.setEnabled(false);
-            b.setEnabled(false);
         }
         if(e.getSource()==powAb){
             resultado.setText(operaciones.powModular(a.getText(), b.getText()));
-            zn.setText("");
-            info.setVisible(true);
-            a.setEnabled(false);
-            b.setEnabled(false);
         }
         if(e.getSource()==powBa){
             resultado.setText(operaciones.powModular(b.getText(),a.getText()));
-            zn.setText("");
-            info.setVisible(true);
-            a.setEnabled(false);
-            b.setEnabled(false);
         }
         if(e.getSource()==raizA){
-            
-            zn.setText("");
-            info.setVisible(true);
-            a.setEnabled(false);
-            b.setEnabled(false);
+            resultado.setText("No Funcional");
         }
         if(e.getSource()==raizB){
-            
-            zn.setText("");
-            info.setVisible(true);
-            a.setEnabled(false);
-            b.setEnabled(false);
+            resultado.setText("No Funcional");
         }
         if(e.getSource()==cp){
-            
-            zn.setText("");
-            info.setVisible(true);
-            a.setEnabled(false);
-            b.setEnabled(false);
+            resultado.setText("No creado");
         }
         if(e.getSource()==inversoA){
-            
-            zn.setText("");
-            info.setVisible(true);
-            a.setEnabled(false);
-            b.setEnabled(false);
+            resultado.setText(operaciones.invertibleModular(a.getText()));
         }
         if(e.getSource()==inversoB){
-            
-            zn.setText("");
-            info.setVisible(true);
-            a.setEnabled(false);
-            b.setEnabled(false);
+            resultado.setText(operaciones.invertibleModular(b.getText()));
         }
-        
+        zn.requestFocus();
     }
-    
+
 }

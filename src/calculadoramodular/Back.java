@@ -63,12 +63,16 @@ public class Back {
     
     public String divisionModular(String sa, String sb){
         if(zn==BigInteger.ZERO)
-            return "";
+            return " ";
         a=new BigInteger(sa);
-        b=new BigInteger(sb);
+        b=new BigInteger(sb);            
         a = perteneceAZn(a);
         b = perteneceAZn(b);
-        //b = invertibleModular
+        sa=invertibleModular(b.toString());
+        if(sa.contains("No"))
+            return sa;
+        else
+            b=new BigInteger(sa);
         resultado=a.multiply(b);
         resultado=resultado.mod(zn);
         return resultado.toString();
@@ -82,6 +86,24 @@ public class Back {
         resultado = a.pow(b.intValue());
         resultado=resultado.mod(zn);
         return resultado.toString();
+    }
+    
+    public String raiz(String r){
+        if(zn==BigInteger.ZERO)
+            return "";
+        a=new BigInteger(r);
+        resultado = a.pow(1/2);        
+        resultado=resultado.mod(zn);
+        return resultado.toString();
+    }
+    
+    public String invertibleModular(String i){
+        b=new BigInteger(i);
+        if(!b.gcd(zn).equals(BigInteger.ONE))
+            return "No existe invertible para "+b.toString()+" en "+ zn.toString();
+        b=b.modInverse(zn);
+        b.mod(zn);
+        return b.toString();
     }
     
     private BigInteger perteneceAZn(BigInteger x){
