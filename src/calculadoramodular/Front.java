@@ -6,11 +6,7 @@
 package calculadoramodular;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.*;
-import java.math.BigInteger;
-import javax.security.auth.kerberos.KeyTab;
 
 
 /**
@@ -18,32 +14,18 @@ import javax.security.auth.kerberos.KeyTab;
  * @author jose-
  */
 public class Front extends JFrame implements ActionListener{
-    private JTextField zn;
-    private JTextField a;
-    private JTextField b;
+    private JTextField zn,a,b;
+    private JScrollPane r;
     private JTextArea resultado;
-    private JLabel info;
-    private JLabel infoZn;
-    private JLabel infoA;
-    private JLabel infoB;
-    private JLabel infoResultado;
-    private JButton sum;
-    private JButton mult;
-    private JButton div;
-    private JButton powAb;
-    private JButton powBa;
-    private JButton raizA;
-    private JButton raizB;
-    private JButton cp;
-    private JButton inversoA;
-    private JButton inversoB;
+    private JLabel info, infoZn, infoA, infoB, infoResultado;
+    private JButton sum, mult, div, powAb, powBa, raizA, raizB, cp, inversoA, inversoB;
     private Back operaciones;
     
     public Front(){
         this.setLayout(null);
         this.setBounds(200, 200, 300, 450);
         this.setTitle("Calculadora Modular");
-        info = new JLabel("press Enter");
+        info = new JLabel("Press Enter");
         infoZn = new JLabel("Zn");
         zn = new JTextField();
         infoA = new JLabel("a");
@@ -51,7 +33,8 @@ public class Front extends JFrame implements ActionListener{
         infoB = new JLabel("b");
         b = new JTextField();
         infoResultado = new JLabel("Resultado");
-        resultado =new JTextArea();
+        resultado= new JTextArea(250,200);
+        r =new JScrollPane(resultado);
         sum = new JButton("S.M");
         mult = new JButton("M.M");
         div = new JButton("D.M");
@@ -63,6 +46,7 @@ public class Front extends JFrame implements ActionListener{
         inversoA = new JButton("a^-1");
         inversoB = new JButton("b^-1");
         operaciones = new Back();
+        
     }
     
     public void ventana(){
@@ -84,7 +68,7 @@ public class Front extends JFrame implements ActionListener{
         inversoA.setBounds(100,145,60,25);
         inversoB.setBounds(165,145,60,25);
         infoResultado.setBounds(115,180,100,20);
-        resultado.setBounds(10,200,260,200);
+        r.setBounds(10, 200, 260, 200);
         
         this.add(info);
         this.add(infoZn);
@@ -94,7 +78,7 @@ public class Front extends JFrame implements ActionListener{
         this.add(infoB);
         this.add(b);
         this.add(infoResultado);
-        this.add(resultado);
+        this.add(r);
         this.add(sum);
         this.add(mult);
         this.add(div);
@@ -114,7 +98,7 @@ public class Front extends JFrame implements ActionListener{
         infoB.setVisible(true);
         b.setVisible(true);
         infoResultado.setVisible(true);
-        resultado.setVisible(true);
+        r.setVisible(true);
         sum.setVisible(true);
         mult.setVisible(true);
         div.setVisible(true);
@@ -129,7 +113,7 @@ public class Front extends JFrame implements ActionListener{
         
         a.setEnabled(false);
         b.setEnabled(false);
-        
+                
         zn.addActionListener(this);
         sum.addActionListener(this);
         mult.addActionListener(this);
@@ -141,6 +125,7 @@ public class Front extends JFrame implements ActionListener{
         cp.addActionListener(this);
         inversoA.addActionListener(this);
         inversoB.addActionListener(this);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
     @Override
@@ -171,13 +156,13 @@ public class Front extends JFrame implements ActionListener{
             resultado.setText(operaciones.powModular(b.getText(),a.getText()));
         }
         if(e.getSource()==raizA){
-            resultado.setText("No Funcional");
+            resultado.setText(operaciones.raiz(a.getText()));
         }
         if(e.getSource()==raizB){
-            resultado.setText("No Funcional");
+            resultado.setText(operaciones.raiz(b.getText()));
         }
         if(e.getSource()==cp){
-            resultado.setText("No creado");
+            resultado.setText(operaciones.cuadradosPerfectos());
         }
         if(e.getSource()==inversoA){
             resultado.setText(operaciones.invertibleModular(a.getText()));

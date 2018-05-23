@@ -88,13 +88,37 @@ public class Back {
         return resultado.toString();
     }
     
+    public int[] cPerfectos(){
+        int cp[]=new int[zn.intValue()];
+        for(int i=0;i<zn.intValue();i++){
+            b=BigInteger.valueOf(i);
+            b=b.multiply(b);
+            b=b.mod(zn);
+            cp[i]=b.intValue();
+        }
+        return cp;
+    }
+    
+    public String cuadradosPerfectos(){
+        int cp[]=cPerfectos();
+        String r="";
+        for(int i=0;i<zn.intValue();i++){
+            r+=cp[i]+", ";
+        }
+        return r+" No more data.";
+    }
+    
     public String raiz(String r){
         if(zn==BigInteger.ZERO)
             return "";
         a=new BigInteger(r);
-        resultado = a.pow(1/2);        
-        resultado=resultado.mod(zn);
-        return resultado.toString();
+        r="{";
+        int cp[]=cPerfectos();
+        for(int i=0;i<zn.intValue();i++){
+            if(cp[i]==a.intValue())
+                r+=i+", ";
+        }
+        return r+"No more}";
     }
     
     public String invertibleModular(String i){
