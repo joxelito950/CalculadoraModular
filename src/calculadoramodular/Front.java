@@ -225,13 +225,15 @@ public class Front extends JFrame implements ActionListener{
         @Override
         public void keyTyped(KeyEvent e) {
                 char d=e.getKeyChar();
-                if(!Character.isDigit(d))
+                if(Character.isAlphabetic(d))
                     e.consume();
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            int code = e.getKeyCode();
+            if(code==KeyEvent.VK_DELETE)
+                e.setSource("");
         }
 
         @Override

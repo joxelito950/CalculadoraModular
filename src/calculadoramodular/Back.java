@@ -103,6 +103,8 @@ public class Back {
         int cp[]=cPerfectos();
         String r="";
         for(int i=0;i<zn.intValue();i++){
+            if(r.contains(Integer.toString(cp[i])))
+                continue;
             r+=cp[i]+", ";
         }
         return r+" No more data.";
