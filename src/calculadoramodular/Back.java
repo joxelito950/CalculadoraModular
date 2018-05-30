@@ -66,8 +66,8 @@ public class Back {
             return " ";
         a=new BigInteger(sa);
         b=new BigInteger(sb);
-        if(b.signum()<0)
-        	return"No es posible dividir por "+b.toString();
+        //if(b.signum()<0)
+        //	return"No es posible dividir por "+b.toString();
         
         a = perteneceAZn(a);
         b = perteneceAZn(b);
@@ -78,9 +78,6 @@ public class Back {
             b=new BigInteger(sa);
         resultado=a.multiply(b);
         resultado=resultado.mod(zn);
-        if(a.signum()<0){
-        	resultado.add(BigInteger.valueOf(-1));
-        }
         return resultado.toString();
     }
     
