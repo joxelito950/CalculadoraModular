@@ -65,7 +65,10 @@ public class Back {
         if(zn==BigInteger.ZERO)
             return " ";
         a=new BigInteger(sa);
-        b=new BigInteger(sb);            
+        b=new BigInteger(sb);
+        if(b.signum()<0)
+        	return"No es posible dividir por "+b.toString();
+        
         a = perteneceAZn(a);
         b = perteneceAZn(b);
         sa=invertibleModular(b.toString());
@@ -75,6 +78,9 @@ public class Back {
             b=new BigInteger(sa);
         resultado=a.multiply(b);
         resultado=resultado.mod(zn);
+        if(a.signum()<0){
+        	resultado.add(BigInteger.valueOf(-1));
+        }
         return resultado.toString();
     }
     
@@ -139,3 +145,4 @@ public class Back {
             return x.mod(zn);
     }
 }
+    
