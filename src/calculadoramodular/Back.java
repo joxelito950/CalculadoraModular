@@ -66,9 +66,6 @@ public class Back {
             return " ";
         a=new BigInteger(sa);
         b=new BigInteger(sb);
-        //if(b.signum()<0)
-        //	return"No es posible dividir por "+b.toString();
-        
         a = perteneceAZn(a);
         b = perteneceAZn(b);
         sa=invertibleModular(b.toString());
@@ -83,9 +80,11 @@ public class Back {
     
     public String powModular(String base, String expo){
         if(zn==BigInteger.ZERO)
-            return "";
+            return " ";
         a=new BigInteger(base);
-        b= new BigInteger(expo);
+        b= new BigInteger(expo);        
+        a = perteneceAZn(a);
+        b = perteneceAZn(b);
         resultado = a.pow(b.intValue());
         resultado=resultado.mod(zn);
         return resultado.toString();

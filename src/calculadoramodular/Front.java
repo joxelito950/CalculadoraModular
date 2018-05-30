@@ -32,6 +32,7 @@ public class Front extends JFrame implements ActionListener{
         b = new JTextField();
         infoResultado = new JLabel("Resultado");
         resultado= new JTextField();
+        resultado.setEditable(false);
         r =new JScrollPane(resultado);
         sum = new JButton("a⊕b");
         mult = new JButton("a⊗b");
