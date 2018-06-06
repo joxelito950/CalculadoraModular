@@ -90,22 +90,23 @@ public class Back {
         return resultado.toString();
     }
     
-    public int[] cPerfectos(){
-        int cp[]=new int[zn.intValue()];
-        for(int i=0;i<zn.intValue();i++){
-            b=BigInteger.valueOf(i);
+    public BigInteger[] cPerfectos(){
+        BigInteger[] cp=new BigInteger[zn.intValue()];
+        BigInteger i,aux=BigInteger.ONE;
+        for(i= BigInteger.ZERO;i.compareTo(zn)<0;i=i.add(aux)){
+            b=i;
             b=b.multiply(b);
             b=b.mod(zn);
-            cp[i]=b.intValue();
+            cp[i.intValue()]=b;
         }
         return cp;
     }
     
     public String cuadradosPerfectos(){
-        int cp[]=cPerfectos();
+        BigInteger[] cp=cPerfectos();
         String r="";
         for(int i=0;i<zn.intValue();i++){
-            if(r.contains(Integer.toString(cp[i])))
+            if(r.contains(Integer.toString(cp[i].intValue())))
                 continue;
             r+=cp[i]+", ";
         }
@@ -117,9 +118,9 @@ public class Back {
             return "";
         a=new BigInteger(r);
         r="{";
-        int cp[]=cPerfectos();
+        BigInteger[] cp=cPerfectos();
         for(int i=0;i<zn.intValue();i++){
-            if(cp[i]==a.intValue())
+            if(cp[i]==a)
                 r+=i+", ";
         }
         return r+"No more}";
